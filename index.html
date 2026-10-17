@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="lo">
-<head>
+<head><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ຮ້ານຂາຍບັນຊີ Free Fire | Free Fire Code Shop</title>
@@ -72,6 +73,10 @@ function placeOrder(){if(!document.getElementById("gameuid").value.trim()){toast
 function openAdmin(){openModal(`<div class="close-row"><h2>⚙ ຈັດການຮ້ານ (Demo)</h2><button class="close" onclick="closeModal()">✕</button></div><p class="muted">ໜ້າສະແດງຕົວຢ່າງຜູ້ດູແລ. ບໍ່ມີການຢືນຢັນສິດຈິງ.</p><h3>ເພີ່ມສິນຄ້າ</h3><form onsubmit="addProduct(event)"><label>ຊື່ສິນຄ້າ</label><input id="pname" class="field" required placeholder="ຕົວຢ່າງ: ບັດເກມ"><label>ລາຄາ (ກີບ)</label><input id="pprice" class="field" type="number" min="1" required placeholder="15000"><button class="btn">+ ເພີ່ມສິນຄ້າ</button></form><h3 style="margin-top:20px">ສິນຄ້າທັງໝົດ</h3><div style="overflow:auto"><table class="admin-table"><thead><tr><th>ຊື່</th><th>ລາຄາ</th><th>ຈັດການ</th></tr></thead><tbody>${products.map(p=>`<tr><td>${escapeHtml(p.name)}</td><td>${money(p.price)}</td><td><button class="icon-btn" onclick="deleteProduct(${p.id})">🗑</button></td></tr>`).join("")}</tbody></table></div><h3>ຄຳສັ່ງຊື້ Demo</h3><div class="muted">${(JSON.parse(localStorage.getItem("ff_orders")||"[]").length)} ຄຳສັ່ງ</div><div class="notice">ລະບົບ Admin ນີ້ບໍ່ໄດ້ປ້ອງກັນດ້ວຍ server authentication. ຫ້າມນຳໄປໃຊ້ຈັດການຮ້ານຈິງ.</div>`)}
 function addProduct(e){e.preventDefault();products.push({id:Date.now(),name:document.getElementById("pname").value,desc:"ສິນຄ້າໃໝ່",price:Number(document.getElementById("pprice").value),stock:100,badge:"ໃໝ່"});save();renderProducts();openAdmin();toast("ເພີ່ມສິນຄ້າແລ້ວ")}
 function deleteProduct(id){if(!confirm("ລຶບສິນຄ້ານີ້ບໍ?"))return;products=products.filter(p=>p.id!==id);cart=cart.filter(c=>c.id!==id);save();renderProducts();openAdmin();toast("ລຶບສິນຄ້າແລ້ວ")}
-renderProducts();
+renderProducts();const SUPABASE_URL = 'https://gyfxjxsbhylcsaicbbgz.supabase.co';
+const SUPABASE_ANON_KEY = sb_publishable_7389YoT1uOPA_5-sZ7DZVw_fZNw5ev6;
+
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 </script>
 </body></html>
